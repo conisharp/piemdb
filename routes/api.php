@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Api\v1')->group(function () {
+Route::namespace('App\Http\Controllers\API\v1')->group(function () {
     Route::group(['prefix' => 'v1',], function () {
+        //Movies
+        Route::get('movies', 'MovieController@index');
 
     });
 });
