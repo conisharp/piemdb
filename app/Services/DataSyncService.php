@@ -24,6 +24,7 @@ class DataSyncService implements IDataSyncService
 
     public function synchronize()
     {
+        $this->_cleanup();
         $data = $this->pieMDBDataSourceRepository->all();
 
         foreach ($data as &$dataEntry) {
@@ -51,5 +52,18 @@ class DataSyncService implements IDataSyncService
 
             unset($images[$key]);
         }
+
+        $images = array_values($images);
+    }
+
+    protected function _cleanup()
+    {
+        $files = Storage::allFiles('public');
+
+        array_shift($files);
+
+        Storage::delete($files);
+
+        Movie::query()->truncate();
     }
 }
